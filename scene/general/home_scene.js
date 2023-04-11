@@ -19,7 +19,7 @@ phina.define("Home_scene",
       var self = this;
 
       //背景色
-      this.backgroundColor = White;
+      this.backgroundColor = "#BFFFFF";
 
 
 
@@ -43,6 +43,7 @@ phina.define("Home_scene",
       let 農場ボタン位置x = SCREEN_W / 4 + ボタン余白 / 8;
       let 外出ボタン位置x = SCREEN_W * 3 / 4 - ボタン余白 / 8;
       let ボタン位置y = 800 + ボタン高 / 2;
+      let パネル余白 = 30;
       /*-----=-----=-----=-----=-----=-----*/
 
 
@@ -53,8 +54,8 @@ phina.define("Home_scene",
       this.パネル展開状況 = 0;
       this.農場パネル = Farm_panel();
       this.外出パネル = Out_panel();
-      this.農場パネル.setPosition(農場ボタン位置x, ボタン位置y + ボタン高 / 2);
-      this.外出パネル.setPosition(外出ボタン位置x, ボタン位置y + ボタン高 / 2);
+      this.農場パネル.setPosition(農場ボタン位置x, ボタン位置y + ボタン高 / 2 + パネル余白 + this.農場パネル.height / 2);
+      this.外出パネル.setPosition(外出ボタン位置x, ボタン位置y + ボタン高 / 2 + パネル余白 + this.外出パネル.height / 2);
       /*-----=-----=-----=-----=-----=-----*/
 
 
@@ -79,11 +80,11 @@ phina.define("Home_scene",
           パネル展開ボタン
         -----=-----=-----=-----=-----=-----*/
       this.農場 = Game_button(
-        "農場", 農場ボタン位置x, ボタン位置y, ボタン幅, ボタン高
+        "農場", 64, 農場ボタン位置x, ボタン位置y, ボタン幅, ボタン高
       ).addChildTo(self.ボタン);
 
       this.外出 = Game_button(
-        "外出", 外出ボタン位置x, ボタン位置y, ボタン幅, ボタン高
+        "外出", 64, 外出ボタン位置x, ボタン位置y, ボタン幅, ボタン高
       ).addChildTo(self.ボタン);
       /*-----=-----=-----=-----=-----=-----*/
 

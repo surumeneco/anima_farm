@@ -11,15 +11,16 @@ phina.define("Game_button",
 
       ---=---=---=---=---=---=---=---=---=---=---=---=---=---=---=---*/
     superClass: "RectangleShape",
-    init: function (文字, x, y, w, h)
+    init: function (文字, 文字サイズ, x, y, w, h)
     {
       /*-----=-----=-----=-----=-----=-----
           色設定
         -----=-----=-----=-----=-----=-----*/
       this.文字色 = Black;
       this.通常色 = White;
-      this.インタラクト色 = lightGray;
-      this.押下色 = Gray;
+      this.インタラクト色 = "#BFFFFF";
+      this.押下色 = "#5FBFBF";
+      this.インタラクト状況 = false;
       /*-----=-----=-----=-----=-----=-----*/
 
 
@@ -46,7 +47,7 @@ phina.define("Game_button",
       this.テキスト = Label(
         {
           text: 文字,
-          fontSize: 64,
+          fontSize: 文字サイズ,
           fill: this.文字色
         }
       ).addChildTo(this);
@@ -63,7 +64,13 @@ phina.define("Game_button",
         -----=-----=-----=-----=-----=-----*/
       this.押下 = function (func)
       {
-        this.on("pointstart", func);
+        this.on("pointend", function ()
+        {
+          if (this.インタラクト状況)
+          {
+            func();
+          }
+        });
       };
       /*-----=-----=-----=-----=-----=-----*/
 
@@ -75,11 +82,13 @@ phina.define("Game_button",
       this.on("pointover", function ()
       {
         this.fill = this.インタラクト色;
+        this.インタラクト状況 = true;
       });
 
       this.on("pointout", function ()
       {
         this.fill = this.通常色;
+        this.インタラクト状況 = false;
       });
       /*-----=-----=-----=-----=-----=-----*/
 
@@ -92,7 +101,14 @@ phina.define("Game_button",
       });
       this.on("pointend", function ()
       {
-        this.fill = this.通常色;
+        if (this.インタラクト状況)
+        {
+          this.fill = this.インタラクト色;
+        }
+        else
+        {
+          this.fill = this.通常色;
+        }
       });
       /*-----=-----=-----=-----=-----=-----*/
     },
